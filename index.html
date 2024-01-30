@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Password Generator</title>
+
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+    <div class="main">
+        <div class="box">
+
+            <div class="title" id="pass-box">
+
+                <span>Testing</span>
+            </div>
+
+
+            <!-- password length -->
+
+            <div class="row">
+
+
+                <div class="left">
+                    Password Lenght
+                </div>
+
+                <div class="right">
+                    <input type="number" value="5" min="5" max="30" id="pass_length">
+                </div>
+
+            </div>
+
+
+            <!-- Upper case -->
+
+            <div class="row">
+
+                <label for="upper_case">
+                    <div class="left">
+                        Contains Uppercase
+                    </div>
+                </label>
+
+                    <div class="right">
+                        <input type="checkbox" id="upper_case" checked>
+                    </div>
+
+            </div>
+
+
+            <!-- contains lower case -->
+
+
+            <div class="row">
+
+                <label for="lower_case">
+                    <div class="left">
+                        Contains Lowercase
+                    </div>
+                </label>
+
+                    <div class="right">
+                        <input type="checkbox" id="lower_case">
+                    </div>
+
+            </div>
+
+
+
+            <!-- contains numbers -->
+
+            <div class="row">
+
+                <label for="number">
+                    <div class="left">
+                        Contains Numbers
+                    </div>
+                </label>
+
+                    <div class="right">
+                        <input type="checkbox" id="number" checked>
+                    </div>
+
+            </div>
+
+            <!-- contains symbols -->
+
+            <div class="row">
+
+                <label for="symbols">
+                    <div class="left">
+                        Contains Symbols
+                    </div>
+                </label>
+
+                    <div class="right">
+                        <input type="checkbox" id="symbols" checked>
+                    </div>
+
+            </div>
+
+
+            <!-- contains button -->
+
+            <button id="btn" onclick="generate_password()">
+                Generate
+            </button>
+        </div>
+    </div>
+
+    <!-- Script file -->
+
+ <script>
+
+
+// set
+   const upper_caseset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+   const lower_caseset = "abcdefghijklmnopqrstuvwxyz"
+   const numberset     = "1234567890"
+   const symbolsset    = "!@#$%^&*()~/"
+
+
+
+//     selectors
+
+
+const pass_box =  document.getElementById("pass-box")
+const pass_length = document.getElementById("pass_length")
+const uppercase  = document.getElementById ("upper_case")
+const lowercase = document.getElementById ("lower_case")
+const num = document.getElementById ("number")
+const symbol = document.getElementById ("symbols")
+
+
+
+
+   function get_randomdata (dataset){
+
+
+    return dataset[  Math.floor(Math.random ()* dataset.length)  ]
+
+
+   }
+
+
+   function generate_password (password = ""){
+
+    if (uppercase.checked){
+
+        password += get_randomdata(upper_caseset) 
+    }
+
+    if (lowercase.checked){
+        password += get_randomdata(lower_caseset)
+    }
+
+
+
+    if (num.checked){
+        password += get_randomdata(numberset)
+    }
+
+
+
+    if (symbol.checked){
+        password += get_randomdata(symbolsset)
+    }
+
+
+    if (password.length < pass_length.value){
+
+        return generate_password(password)
+
+
+    }
+
+  pass_box .innerText = truncateString (password,pass_length.value)
+
+
+
+
+   }
+
+   generate_password()
+
+
+   function truncateString(str, num) {
+    if (str.length > num) {
+        let subStr = str.substring(0, num);
+        return subStr;
+    } else {
+        return str;
+    }
+}
+ </script>
+
+
+    
+</body>
+</html>
